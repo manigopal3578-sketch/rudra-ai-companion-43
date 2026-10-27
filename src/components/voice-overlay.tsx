@@ -330,7 +330,7 @@ export function VoiceOverlay({
           {(state === "transcribing" || state === "thinking") && transcript && (
             <p className="text-[15px] leading-relaxed text-muted-foreground">“{transcript}”</p>
           )}
-          {(speaking || state === "idle") && replyText && state !== "listening" && (
+          {(speaking || state === "idle") && replyText && (
             <p className="text-[17px] leading-relaxed text-foreground/95 whitespace-pre-wrap">{replyText}</p>
           )}
           {state === "error" && (

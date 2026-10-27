@@ -94,7 +94,7 @@ export type VoiceModeState =
   | "error"
   | "cancelled";
 
-export type ProposalState = "pending" | "confirmed" | "cancelled";
+export type ProposalState = "pending" | "confirmed" | "executing" | "cancelled";
 
 export const LANGUAGE_LABELS: Record<LanguageSetting, string> = {
   auto: "Auto-detect (English + Telugu)",

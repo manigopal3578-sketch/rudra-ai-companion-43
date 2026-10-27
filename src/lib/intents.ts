@@ -12,26 +12,36 @@ const INTENT_MARKER = /(^|\n)INTENT:\s*(\{[\s\S]*?\})\s*$/;
 
 const TIME_PATTERN = /^([01]?\d|2[0-3]):[0-5]\d$/;
 
-function nonEmpty(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0 && value.trim().length <= 120;
+function nonEmpty(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 && trimmed.length <= 120 ? trimmed : null;
 }
 
 function validateParams(intent: RudraIntentId, params: IntentParams | undefined): IntentProposal | null {
   const p = params ?? {};
   switch (intent) {
-    case "OPEN_APP":
-      return nonEmpty(p.app) ? { intent, params: { app: p.app.trim() } } : null;
-    case "SET_ALARM":
-      return nonEmpty(p.time) && TIME_PATTERN.test(p.time.trim())
-        ? { intent, params: { time: p.time.trim(), label: nonEmpty(p.label) ? p.label.trim() : undefined } }
-        : null;
+    case "OPEN_APP": {
+      const app = nonEmpty(p.app);
+      return app ? { intent, params: { app } } : null;
+    }
+    case "SET_ALARM": {
+      const time = nonEmpty(p.time);
+      if (!time || !TIME_PATTERN.test(time)) return null;
+      const label = nonEmpty(p.label);
+      return label ? { intent, params: { time, label } } : { intent, params: { time } };
+    }
     case "FIND_CONTACT":
-    case "DIAL_CONTACT":
-      return nonEmpty(p.name) ? { intent, params: { name: p.name.trim() } } : null;
+    case "DIAL_CONTACT": {
+      const name = nonEmpty(p.name);
+      return name ? { intent, params: { name } } : null;
+    }
     case "CANCEL_ACTION":
       return { intent, params: {} };
-    case "GENERATE_AVATAR":
-      return { intent, params: { prompt: nonEmpty(p.prompt) ? p.prompt.trim() : undefined } };
+    case "GENERATE_AVATAR": {
+      const prompt = nonEmpty(p.prompt);
+      return prompt ? { intent, params: { prompt } } : { intent, params: {} };
+    }
     default:
       // ASK_ASSISTANT / UNKNOWN are never executable proposals.
       return null;
@@ -46,18 +56,19 @@ export function parseReply(raw: string): ParsedReply {
   }
 
   const displayText = text.slice(0, match.index).trim();
-  let proposal: IntentProposal | undefined;
+  const result: ParsedReply = { displayText };
   try {
-    const parsed = JSON.parse(match[2]) as { intent?: unknown; params?: IntentParams };
-    const intent = parsed.intent as RudraIntentId;
+    const parsed = JSON.parse(match[2] ?? "{}") as { intent?: unknown; params?: IntentParams };
+    const intent = parsed.intent;
     if (
       typeof intent === "string" &&
       (PROPOSABLE_INTENTS as readonly string[]).includes(intent)
     ) {
-      proposal = validateParams(intent, parsed.params) ?? undefined;
+      const proposal = validateParams(intent, parsed.params);
+      if (proposal) result.proposal = proposal;
     }
   } catch {
-    proposal = undefined;
+    // Malformed marker: strip the line, never propose.
   }
-  return { displayText, proposal };
+  return result;
 }

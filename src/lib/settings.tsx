@@ -44,8 +44,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   // Reflect motion + intensity on <html> so the orb CSS can react globally.
   useEffect(() => {
     const root = document.documentElement;
-    root.dataset.motion = settings.reducedMotion ? "reduced" : "full";
-    root.dataset.intensity = settings.animationIntensity;
+    root.dataset["motion"] = settings.reducedMotion ? "reduced" : "full";
+    root.dataset["intensity"] = settings.animationIntensity;
   }, [settings.reducedMotion, settings.animationIntensity]);
 
   const update = useCallback((patch: Partial<RudraSettings>) => {
