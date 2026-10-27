@@ -64,7 +64,7 @@ export function parseReply(raw: string): ParsedReply {
       typeof intent === "string" &&
       (PROPOSABLE_INTENTS as readonly string[]).includes(intent)
     ) {
-      const proposal = validateParams(intent, parsed.params);
+      const proposal = validateParams(intent as RudraIntentId, parsed.params);
       if (proposal) result.proposal = proposal;
     }
   } catch {
