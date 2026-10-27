@@ -1,5 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
+import { RUDRA_CHAT_MODEL, RUDRA_IMAGE_MODEL } from "@/lib/rudra-models";
+
 export type ServiceProbe = {
   aiChat: boolean;
   imageGeneration: boolean;
@@ -30,8 +32,8 @@ export const probeServices = createServerFn({ method: "GET" }).handler(async ():
     const json = (await res.json()) as { data?: { id?: string }[] };
     const ids = (json.data ?? []).map((m) => m.id ?? "");
     return {
-      aiChat: ids.some((id) => id.startsWith("openai/")),
-      imageGeneration: ids.some((id) => id.startsWith("openai/gpt-image")),
+      aiChat: ids.includes(RUDRA_CHAT_MODEL) || ids.some((id) => id.startsWith("openai/")),
+      imageGeneration: ids.includes(RUDRA_IMAGE_MODEL),
     };
   } catch {
     return { aiChat: false, imageGeneration: false, detail: "Could not reach the AI service." };
