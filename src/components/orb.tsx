@@ -1,4 +1,5 @@
 import { TridentLogo } from "@/components/trident-logo";
+import { TridentShield } from "@/components/trident-shield";
 
 export type OrbState = "idle" | "listening" | "thinking" | "speaking";
 export type OrbSize = "sm" | "md" | "lg" | "xl";
@@ -21,12 +22,14 @@ export function Orb({
   state = "idle",
   level = 0,
   showEmblem = true,
+  emblem = "trident",
   className,
 }: {
   size?: OrbSize;
   state?: OrbState;
   level?: number;
   showEmblem?: boolean;
+  emblem?: "trident" | "shield";
   className?: string;
 }) {
   return (
@@ -56,7 +59,11 @@ export function Orb({
       <div className="orb__sheen" />
       {showEmblem && (
         <div className="orb__emblem">
-          <TridentLogo size={parseInt(SIZES[size], 10) * 0.2 || 18} />
+          {emblem === "shield" ? (
+            <TridentShield size={parseInt(SIZES[size], 10) * 0.2 || 18} />
+          ) : (
+            <TridentLogo size={parseInt(SIZES[size], 10) * 0.2 || 18} />
+          )}
         </div>
       )}
     </div>

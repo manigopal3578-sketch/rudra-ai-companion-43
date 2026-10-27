@@ -6,9 +6,9 @@ import { AlertTriangle, X } from "lucide-react";
 import { ActionProposalCard } from "@/components/action-proposal-card";
 import { BottomNav } from "@/components/bottom-nav";
 import { Composer } from "@/components/composer";
-import { Orb } from "@/components/orb";
+import { GuardianOverlay } from "@/components/guardian-overlay";
 import { RudraHeader } from "@/components/rudra-header";
-import { VoiceOverlay } from "@/components/voice-overlay";
+import { TridentShield } from "@/components/trident-shield";
 import { probeServices } from "@/lib/capabilities.functions";
 import { archiveCurrent, loadCurrent, newConversationId, saveCurrent } from "@/lib/conversation-store";
 import { useSettings } from "@/lib/settings";
@@ -130,19 +130,21 @@ function Index() {
 
       {empty ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-5 px-6 text-center">
+          {/* RUDRA is absent when idle: the sigil is only the summon point. */}
           <button
             onClick={() => setVoiceOpen(true)}
-            aria-label="Open voice mode"
-            className="rounded-full outline-offset-8 transition-transform hover:scale-[1.03] active:scale-95"
+            aria-label="Summon RUDRA, the floating guardian"
+            className="sigil-button outline-offset-8"
           >
-            <Orb size="xl" state="idle" />
+            <span className="sigil-button__pulse" aria-hidden />
+            <TridentShield size={34} />
           </button>
           <div className="space-y-1.5">
             <p className="text-[13px] font-medium text-muted-foreground">
               {settings.userName ? `Hello, ${settings.userName}` : "Hello"}
             </p>
             <h1 className="text-[22px] font-bold leading-tight text-foreground">How can I help you today?</h1>
-            <p className="text-[13px] text-muted-foreground">Speak naturally. I'm listening.</p>
+            <p className="text-[13px] text-muted-foreground">Summoned on demand — tap the sigil or the mic and speak.</p>
           </div>
           <div className="mt-2 grid w-full max-w-xs grid-cols-2 gap-2">
             {SUGGESTIONS.map((suggestion) => (
