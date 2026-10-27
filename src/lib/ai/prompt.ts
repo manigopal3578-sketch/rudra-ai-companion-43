@@ -5,7 +5,6 @@
  * prototype only renders the proposal as an explicitly simulated card.
  */
 
-export const RUDRA_MODEL = "openai/gpt-6-astra";
 
 export const RUDRA_INTENT_IDS = [
   "OPEN_APP",
