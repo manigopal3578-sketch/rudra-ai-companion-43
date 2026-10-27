@@ -219,7 +219,7 @@ function Index() {
 
       <BottomNav />
 
-      <VoiceOverlay
+      <GuardianOverlay
         open={voiceOpen}
         onClose={() => setVoiceOpen(false)}
         onSend={chat.send}
