@@ -22,7 +22,7 @@ export const Route = createFileRoute("/api/generate-image")({
 
         try {
           const stream = await generateImageStream(
-            { model: RUDRA_IMAGE_MODEL, prompt, partial_images: 1, stream: true },
+            { model: RUDRA_IMAGE_MODEL, prompt, partial_images: 1 },
             { signal: request.signal },
           );
           return stream.toResponse({
