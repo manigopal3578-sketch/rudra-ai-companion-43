@@ -441,7 +441,123 @@
   .orb__ribbon,
   .fade-up,
   .pulse-dot,
-  .shimmer-line {
+  .shimmer-line,
+  .sigil-button__pulse,
+  .guardian-orb,
+  .guardian-stage {
     animation: none !important;
+  }
+}
+
+/* ---------- On-demand summon sigil (home screen) ---------- */
+
+.sigil-button {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: var(--color-electric);
+  background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-electric) 30%, transparent);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 22px color-mix(in oklab, var(--color-electric) 26%, transparent),
+    inset 0 0 14px color-mix(in oklab, var(--color-electric) 14%, transparent);
+  filter: drop-shadow(0 0 10px color-mix(in oklab, var(--color-electric) 45%, transparent));
+  transition: transform 0.25s ease;
+}
+
+.sigil-button:hover {
+  transform: scale(1.06);
+}
+
+.sigil-button:active {
+  transform: scale(0.95);
+}
+
+.sigil-button__pulse {
+  position: absolute;
+  inset: -7px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-electric) 35%, transparent);
+  animation: sigil-breathe 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sigil-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.14);
+    opacity: 0.2;
+  }
+}
+
+/* ---------- Floating guardian overlay: summon & dismiss choreography ---------- */
+
+.guardian-stage {
+  background: color-mix(in oklab, var(--color-background) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(1.1);
+  animation: guardian-fade-in 0.35s ease-out both;
+}
+
+.guardian-stage--closing {
+  animation: guardian-fade-out 0.5s ease-in both;
+}
+
+.guardian-orb {
+  animation: guardian-summon 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.guardian-orb--closing {
+  animation: guardian-dismiss 0.5s ease-in both;
+}
+
+@keyframes guardian-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes guardian-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes guardian-summon {
+  0% {
+    opacity: 0;
+    transform: translateY(26%) scale(0.14);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-2%) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes guardian-dismiss {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(22%) scale(0.14);
   }
 }
