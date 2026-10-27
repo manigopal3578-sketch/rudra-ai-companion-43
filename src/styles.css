@@ -5,17 +5,11 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
+ * RUDRA design system.
  *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Deep-black / midnight-navy atmosphere, electric cyan and blue light with
+ * subtle violet accents. Every color is a semantic token defined here; no
+ * component hardcodes hex or raw color utilities.
  */
 
 @theme inline {
@@ -45,91 +39,44 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  /* RUDRA-specific semantic tokens */
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-electric: var(--electric);
+  --color-deep: var(--deep);
+  --color-violet: var(--violet);
+  --color-glow: var(--electric);
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Telugu", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Noto Sans Telugu", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
-}
-
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --radius: 0.875rem;
+  --background: oklch(0.135 0.028 256);
+  --foreground: oklch(0.975 0.012 250);
+  --card: oklch(0.23 0.05 253);
+  --card-foreground: oklch(0.975 0.012 250);
+  --popover: oklch(0.19 0.045 253);
+  --popover-foreground: oklch(0.975 0.012 250);
+  --primary: oklch(0.625 0.19 256);
+  --primary-foreground: oklch(0.14 0.03 256);
+  --secondary: oklch(0.19 0.045 253);
+  --secondary-foreground: oklch(0.975 0.012 250);
+  --muted: oklch(0.19 0.045 253);
+  --muted-foreground: oklch(0.73 0.032 248);
+  --accent: oklch(0.23 0.05 253);
+  --accent-foreground: oklch(0.975 0.012 250);
+  --destructive: oklch(0.63 0.2 25);
+  --destructive-foreground: oklch(0.975 0.012 250);
+  --border: oklch(0.72 0.09 250 / 0.15);
+  --input: oklch(0.72 0.09 250 / 0.18);
+  --ring: oklch(0.83 0.14 209);
+  /* RUDRA surfaces & accents */
+  --surface: oklch(0.19 0.045 253);
+  --surface-2: oklch(0.23 0.05 253);
+  --electric: oklch(0.83 0.14 209);
+  --deep: oklch(0.51 0.2 259);
+  --violet: oklch(0.63 0.19 288);
 }
 
 @layer base {
@@ -137,8 +84,364 @@
     border-color: var(--color-border);
   }
 
+  html {
+    background-color: var(--color-background);
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-electric) 30%, transparent);
+    color: var(--color-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-electric);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-electric) 25%, transparent);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* ---------- Shared surfaces ---------- */
+
+@utility glass {
+  background: color-mix(in oklab, var(--color-surface) 82%, transparent);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(18px) saturate(1.2);
+}
+
+@utility glass-strong {
+  background: color-mix(in oklab, var(--color-surface-2) 92%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-electric) 18%, transparent);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+
+@utility glow-text {
+  text-shadow:
+    0 0 18px color-mix(in oklab, var(--color-electric) 45%, transparent),
+    0 0 42px color-mix(in oklab, var(--color-primary) 25%, transparent);
+}
+
+@utility pb-safe {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+
+@utility pt-safe {
+  padding-top: calc(0.75rem + env(safe-area-inset-top));
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---------- The RUDRA orb ---------- */
+
+.orb {
+  --orb-size: 220px;
+  position: relative;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  flex: none;
+}
+
+.orb__aura {
+  position: absolute;
+  inset: -18%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 45%, color-mix(in oklab, var(--color-electric) 26%, transparent) 0%, transparent 55%),
+    radial-gradient(circle at 62% 68%, color-mix(in oklab, var(--color-violet) 20%, transparent) 0%, transparent 60%),
+    radial-gradient(circle at 35% 70%, color-mix(in oklab, var(--color-deep) 30%, transparent) 0%, transparent 65%);
+  filter: blur(22px);
+  animation: orb-breathe 7s ease-in-out infinite;
+  z-index: 0;
+}
+
+.orb__core {
+  position: relative;
+  width: 62%;
+  height: 62%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 34% 30%, color-mix(in oklab, white 82%, var(--color-electric)) 0%, transparent 26%),
+    radial-gradient(circle at 50% 42%, var(--color-electric) 0%, var(--color-primary) 42%, var(--color-deep) 78%, oklch(0.2 0.06 256) 100%);
+  box-shadow:
+    0 0 34px color-mix(in oklab, var(--color-electric) 55%, transparent),
+    0 0 90px color-mix(in oklab, var(--color-primary) 35%, transparent),
+    inset 0 0 24px color-mix(in oklab, white 24%, transparent);
+  animation: orb-breathe 5.5s ease-in-out infinite;
+  z-index: 2;
+  will-change: transform;
+}
+
+.orb__ring {
+  position: absolute;
+  inset: 8%;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-electric) 38%, transparent);
+  background: color-mix(in oklab, var(--color-surface) 24%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 22%, transparent),
+    inset 0 -14px 30px color-mix(in oklab, var(--color-deep) 24%, transparent);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.orb__sheen {
+  position: absolute;
+  inset: 4%;
+  border-radius: 999px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in oklab, var(--color-electric) 34%, transparent) 40deg,
+    transparent 95deg,
+    color-mix(in oklab, var(--color-violet) 22%, transparent) 200deg,
+    transparent 260deg,
+    color-mix(in oklab, var(--color-electric) 20%, transparent) 320deg,
+    transparent 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 58%, black 62%, black 78%, transparent 82%);
+  mask: radial-gradient(circle, transparent 58%, black 62%, black 78%, transparent 82%);
+  animation: orb-spin 26s linear infinite;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.orb__orbit {
+  position: absolute;
+  inset: -6%;
+  animation: orb-spin 44s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.orb__particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-electric);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--color-electric) 80%, transparent);
+  transform: rotate(var(--particle-angle, 0deg)) translateX(calc(var(--orb-size) / 2 + 6px));
+  opacity: 0.85;
+}
+
+.orb__particle--violet {
+  background: var(--color-violet);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--color-violet) 80%, transparent);
+}
+
+.orb__ribbon {
+  position: absolute;
+  inset: -12%;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  border-top-color: color-mix(in oklab, var(--color-electric) 55%, transparent);
+  border-right-color: color-mix(in oklab, var(--color-violet) 30%, transparent);
+  filter: blur(4px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.orb__ribbon--b {
+  inset: -2%;
+  border-top-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
+  border-right-color: transparent;
+  animation-direction: reverse;
+  animation-duration: 34s;
+}
+
+.orb__emblem {
+  position: relative;
+  z-index: 5;
+  opacity: 0.92;
+  filter: drop-shadow(0 0 10px color-mix(in oklab, var(--color-electric) 60%, transparent));
+}
+
+/* Orb states */
+.orb--listening .orb__aura {
+  animation-duration: 2.4s;
+  background:
+    radial-gradient(circle at 50% 45%, color-mix(in oklab, var(--color-electric) 42%, transparent) 0%, transparent 55%),
+    radial-gradient(circle at 62% 68%, color-mix(in oklab, var(--color-violet) 18%, transparent) 0%, transparent 60%);
+}
+.orb--listening .orb__core {
+  animation-duration: 2.2s;
+  box-shadow:
+    0 0 46px color-mix(in oklab, var(--color-electric) 70%, transparent),
+    0 0 120px color-mix(in oklab, var(--color-primary) 40%, transparent),
+    inset 0 0 24px color-mix(in oklab, white 24%, transparent);
+}
+
+.orb--thinking .orb__aura {
+  animation-duration: 3.4s;
+  background:
+    radial-gradient(circle at 55% 40%, color-mix(in oklab, var(--color-violet) 40%, transparent) 0%, transparent 58%),
+    radial-gradient(circle at 40% 65%, color-mix(in oklab, var(--color-primary) 34%, transparent) 0%, transparent 60%);
+}
+.orb--thinking .orb__sheen {
+  animation-duration: 7s;
+}
+.orb--thinking .orb__core {
+  filter: saturate(1.15) hue-rotate(-12deg);
+}
+
+.orb--speaking .orb__core {
+  animation-duration: 1.6s;
+  box-shadow:
+    0 0 52px color-mix(in oklab, var(--color-electric) 72%, transparent),
+    0 0 130px color-mix(in oklab, var(--color-primary) 45%, transparent),
+    inset 0 0 28px color-mix(in oklab, white 30%, transparent);
+}
+
+.orb--idle .orb__aura {
+  opacity: 0.85;
+}
+
+/* Animation intensity + reduced motion */
+[data-intensity="calm"] .orb__particle:nth-child(n + 4),
+[data-intensity="standard"] .orb__particle:nth-child(n + 6) {
+  display: none;
+}
+[data-intensity="vivid"] .orb__aura {
+  filter: blur(18px) saturate(1.35);
+}
+
+[data-motion="reduced"] .orb__aura,
+[data-motion="reduced"] .orb__core,
+[data-motion="reduced"] .orb__sheen,
+[data-motion="reduced"] .orb__orbit,
+[data-motion="reduced"] .orb__ribbon,
+[data-motion="reduced"] .orb--ribbon,
+[data-motion="reduced"] .fade-up,
+[data-motion="reduced"] .pulse-dot,
+[data-motion="reduced"] .shimmer-line {
+  animation: none !important;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes orb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes shimmer-line {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes wave-bar {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.35s ease-out both;
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.2s ease-in-out infinite;
+}
+
+.shimmer-line {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--color-muted) 60%, transparent) 25%,
+    color-mix(in oklab, var(--color-electric) 30%, transparent) 50%,
+    color-mix(in oklab, var(--color-muted) 60%, transparent) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-line 1.6s linear infinite;
+}
+
+/* Equalizer fallback bars (shown when no live analyser audio is available) */
+.eq-bar {
+  width: 4px;
+  border-radius: 999px;
+  background: var(--color-electric);
+  transform-origin: center;
+  animation: wave-bar 1.1s ease-in-out infinite;
+  box-shadow: 0 0 8px color-mix(in oklab, var(--color-electric) 70%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb__aura,
+  .orb__core,
+  .orb__sheen,
+  .orb__orbit,
+  .orb__ribbon,
+  .fade-up,
+  .pulse-dot,
+  .shimmer-line {
+    animation: none !important;
   }
 }
