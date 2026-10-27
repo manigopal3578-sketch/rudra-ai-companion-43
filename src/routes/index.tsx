@@ -50,6 +50,11 @@ function Index() {
   const [input, setInput] = useState("");
   const [voiceOpen, setVoiceOpen] = useState(false);
   const [proposalStates, setProposalStates] = useState<Record<string, ProposalState>>({});
+  // Mic support is browser-only: resolve after hydration to avoid SSR mismatch.
+  const [micSupported, setMicSupported] = useState(false);
+  useEffect(() => {
+    setMicSupported(isSpeechRecognitionSupported());
+  }, []);
   const conversationIdRef = useRef(newConversationId());
   const restoredRef = useRef(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -206,7 +211,7 @@ function Index() {
           onStop={chat.stop}
           onMic={() => setVoiceOpen(true)}
           busy={busy}
-          micDisabled={!isSpeechRecognitionSupported()}
+          micDisabled={!micSupported}
         />
       </div>
 

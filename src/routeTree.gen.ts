@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AvatarRouteImport } from './routes/avatar'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
 
@@ -19,9 +21,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AvatarRoute = AvatarRouteImport.update({
+  id: '/avatar',
+  path: '/avatar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
   path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -37,34 +49,61 @@ const ApiGenerateImageRoute = ApiGenerateImageRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/avatar': typeof AvatarRoute
   '/history': typeof HistoryRoute
+  '/settings': typeof SettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/avatar': typeof AvatarRoute
   '/history': typeof HistoryRoute
+  '/settings': typeof SettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/avatar': typeof AvatarRoute
   '/history': typeof HistoryRoute
+  '/settings': typeof SettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/history' | '/api/chat' | '/api/generate-image'
+  fullPaths:
+    | '/'
+    | '/avatar'
+    | '/history'
+    | '/settings'
+    | '/api/chat'
+    | '/api/generate-image'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/history' | '/api/chat' | '/api/generate-image'
-  id: '__root__' | '/' | '/history' | '/api/chat' | '/api/generate-image'
+  to:
+    | '/'
+    | '/avatar'
+    | '/history'
+    | '/settings'
+    | '/api/chat'
+    | '/api/generate-image'
+  id:
+    | '__root__'
+    | '/'
+    | '/avatar'
+    | '/history'
+    | '/settings'
+    | '/api/chat'
+    | '/api/generate-image'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AvatarRoute: typeof AvatarRoute
   HistoryRoute: typeof HistoryRoute
+  SettingsRoute: typeof SettingsRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiGenerateImageRoute: typeof ApiGenerateImageRoute
 }
@@ -78,11 +117,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/avatar': {
+      id: '/avatar'
+      path: '/avatar'
+      fullPath: '/avatar'
+      preLoaderRoute: typeof AvatarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/history': {
       id: '/history'
       path: '/history'
       fullPath: '/history'
       preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -104,7 +157,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AvatarRoute: AvatarRoute,
   HistoryRoute: HistoryRoute,
+  SettingsRoute: SettingsRoute,
   ApiChatRoute: ApiChatRoute,
   ApiGenerateImageRoute: ApiGenerateImageRoute,
 }
