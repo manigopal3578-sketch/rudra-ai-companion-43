@@ -126,10 +126,10 @@ export function useRudraChat(options: { language: string; userName: string; soun
         if (throwObject.current) throw throwObject.current;
 
         setMessages((prev) => {
-          const finalMessages = prev.map((m) => {
+          const finalMessages = prev.map((m): ChatMessage => {
             if (m.id !== assistantId) return m;
             const { displayText, proposal } = parseReply(m.content);
-            return { ...m, content: displayText, proposal };
+            return { ...m, content: displayText, ...(proposal ? { proposal } : {}) };
           });
           messagesRef.current = finalMessages;
           return finalMessages;
@@ -142,10 +142,10 @@ export function useRudraChat(options: { language: string; userName: string; soun
           setMessages((prev) => {
             const kept = prev
               .filter((m) => !(m.id === assistantId && !m.content.trim()))
-              .map((m) => {
+              .map((m): ChatMessage => {
                 if (m.id !== assistantId) return m;
                 const { displayText, proposal } = parseReply(m.content);
-                return { ...m, content: displayText, proposal };
+                return { ...m, content: displayText, ...(proposal ? { proposal } : {}) };
               });
             messagesRef.current = kept;
             return kept;

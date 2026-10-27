@@ -74,11 +74,13 @@ export function createRecognizer(options: RecognizerOptions): Recognizer | null 
     let interim = "";
     for (let i = event.resultIndex; i < event.results.length; i++) {
       const result = event.results[i];
-      const transcript = result[0]?.transcript ?? "";
+      if (!result) continue;
+      const alternative = result[0];
+      if (!alternative) continue;
       if (result.isFinal) {
-        options.onResult(transcript.trim(), true);
+        options.onResult(alternative.transcript.trim(), true);
       } else {
-        interim += transcript;
+        interim += alternative.transcript;
       }
     }
     if (interim.trim()) options.onResult(interim.trim(), false);
@@ -123,7 +125,7 @@ function pickVoice(preferredURI: string, lang: string): SpeechSynthesisVoice | u
     const exact = voices.find((v) => v.voiceURI === preferredURI);
     if (exact) return exact;
   }
-  const base = lang.split("-")[0];
+  const base = lang.split("-")[0] ?? lang;
   return (
     voices.find((v) => v.lang.toLowerCase() === lang.toLowerCase()) ??
     voices.find((v) => v.lang.toLowerCase().startsWith(base))
@@ -206,7 +208,9 @@ export async function startAudioLevelMeter(): Promise<AudioLevelMeter | null> {
   } catch {
     return null;
   }
-  const AudioCtx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+  const AudioCtx =
+    window.AudioContext ??
+    (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
   if (!AudioCtx) {
     stream.getTracks().forEach((t) => t.stop());
     return null;
@@ -223,7 +227,7 @@ export async function startAudioLevelMeter(): Promise<AudioLevelMeter | null> {
       analyser.getByteTimeDomainData(data);
       let sum = 0;
       for (let i = 0; i < data.length; i++) {
-        const v = (data[i] - 128) / 128;
+        const v = ((data[i] ?? 128) - 128) / 128;
         sum += v * v;
       }
       return Math.min(1, Math.sqrt(sum / data.length) * 3);
