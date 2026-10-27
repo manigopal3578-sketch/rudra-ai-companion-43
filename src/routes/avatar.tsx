@@ -135,7 +135,7 @@ function AvatarPage() {
               }}
               className="rounded-full border border-border px-3 py-1.5 text-[11px] font-semibold text-muted-foreground transition hover:border-electric/50 hover:text-electric disabled:opacity-50"
             >
-              {preset.split(",")[0].replace("RUDRA ", "")}
+              {preset.split(",")[0]?.replace("RUDRA ", "") ?? preset}
             </button>
           ))}
         </div>
