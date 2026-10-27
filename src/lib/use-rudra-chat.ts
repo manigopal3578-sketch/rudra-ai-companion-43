@@ -35,6 +35,7 @@ export function useRudraChat(options: { language: string; userName: string; soun
   const [status, setStatus] = useState<ChatStatus>("idle");
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const messagesRef = useRef<ChatMessage[]>([]);
   const optionsRef = useRef(options);
   optionsRef.current = options;
 
@@ -167,9 +168,6 @@ export function useRudraChat(options: { language: string; userName: string; soun
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
-
-  const messagesRef = useRef<ChatMessage[]>([]);
-  messagesRef.current = messages;
 
   const setAllMessages = useCallback((next: ChatMessage[]) => {
     messagesRef.current = next;
