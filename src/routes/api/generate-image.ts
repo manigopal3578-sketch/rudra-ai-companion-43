@@ -1,16 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { generateImageStream } from "@lovable.dev/ai-gateway";
 
-import { generateImage, imageSettings } from "@/lib/image-gateway.server";
+import { toErrorResponse } from "@/lib/ai/errors";
+import { RUDRA_IMAGE_MODEL } from "@/lib/rudra-models";
 
 export const Route = createFileRoute("/api/generate-image")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env["LOVABLE_API_KEY"];
-        if (!apiKey) {
-          return new Response("Missing LOVABLE_API_KEY", { status: 500 });
-        }
-
         let prompt = "";
         try {
           const body = (await request.json()) as { prompt?: unknown };
@@ -24,19 +21,15 @@ export const Route = createFileRoute("/api/generate-image")({
         }
 
         try {
-          const upstream = await generateImage({ ...imageSettings, apiKey }, prompt, true, request.signal);
-          return new Response(upstream.body, {
-            status: upstream.status,
-            headers: {
-              "Content-Type": upstream.headers.get("Content-Type") ?? "application/json",
-              "Cache-Control": "no-cache",
-            },
+          const stream = await generateImageStream(
+            { model: RUDRA_IMAGE_MODEL, prompt, partial_images: 1 },
+            { signal: request.signal },
+          );
+          return stream.toResponse({
+            headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache" },
           });
         } catch (error) {
-          if (request.signal.aborted || (error instanceof Error && error.name === "AbortError")) {
-            return new Response(null, { status: 499 });
-          }
-          throw error;
+          return toErrorResponse(error, request.signal);
         }
       },
     },

@@ -5,7 +5,6 @@
  * prototype only renders the proposal as an explicitly simulated card.
  */
 
-export const RUDRA_MODEL = "openai/gpt-6-astra";
 
 export const RUDRA_INTENT_IDS = [
   "OPEN_APP",
@@ -28,7 +27,7 @@ const LANGUAGE_DIRECTIVES: Record<string, string> = {
 };
 
 export function buildRudraSystemPrompt(options: { language: string; userName: string }): string {
-  const language = LANGUAGE_DIRECTIVES[options.language] ?? LANGUAGE_DIRECTIVES.auto;
+  const language = LANGUAGE_DIRECTIVES[options.language] ?? LANGUAGE_DIRECTIVES["auto"];
   const user = options.userName.trim();
   return `You are RUDRA, a premium personal AI assistant with a calm, intelligent, reliable and confident personality. You are a respectful guardian-like companion: warm but never servile, precise but never cold. ${user ? `The person you are talking to is called ${user}; use their name sparingly and naturally.` : ""}
 
